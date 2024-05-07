@@ -66,7 +66,7 @@ func Test_Adapt(t *testing.T) {
 							},
 							IPConfiguration: sql.IPConfiguration{
 								Metadata:   iacTypes.NewTestMetadata(),
-								RequireTLS: iacTypes.Bool(true, iacTypes.NewTestMetadata()),
+								SSLMode: iacTypes.String("", iacTypes.NewTestMetadata()),
 								EnableIPv4: iacTypes.Bool(false, iacTypes.NewTestMetadata()),
 								AuthorizedNetworks: []struct {
 									Name iacTypes.StringValue
@@ -166,7 +166,7 @@ resource "google_sql_database_instance" "backup_source_instance" {
 						},
 						IPConfiguration: sql.IPConfiguration{
 							EnableIPv4: iacTypes.Bool(false, iacTypes.NewTestMetadata()),
-							RequireTLS: iacTypes.Bool(true, iacTypes.NewTestMetadata()),
+							SSLMode: iacTypes.String("", iacTypes.NewTestMetadata()),
 						},
 					},
 				},
@@ -196,7 +196,7 @@ func TestLines(t *testing.T) {
 
 		  ip_configuration {
 			ipv4_enabled    = false
-			require_ssl     = true
+			ssl_mode        = "ENCRYPTED_ONLY"
 			authorized_networks {
 				name            = "internal"
 				value           = "108.12.12.0/24"
@@ -253,8 +253,8 @@ func TestLines(t *testing.T) {
 	assert.Equal(t, 12, instance.Settings.IPConfiguration.EnableIPv4.GetMetadata().Range().GetStartLine())
 	assert.Equal(t, 12, instance.Settings.IPConfiguration.EnableIPv4.GetMetadata().Range().GetEndLine())
 
-	assert.Equal(t, 13, instance.Settings.IPConfiguration.RequireTLS.GetMetadata().Range().GetStartLine())
-	assert.Equal(t, 13, instance.Settings.IPConfiguration.RequireTLS.GetMetadata().Range().GetEndLine())
+	assert.Equal(t, 13, instance.Settings.IPConfiguration.SSLMode.GetMetadata().Range().GetStartLine())
+	assert.Equal(t, 13, instance.Settings.IPConfiguration.SSLMode.GetMetadata().Range().GetEndLine())
 
 	assert.Equal(t, 15, instance.Settings.IPConfiguration.AuthorizedNetworks[0].Name.GetMetadata().Range().GetStartLine())
 	assert.Equal(t, 15, instance.Settings.IPConfiguration.AuthorizedNetworks[0].Name.GetMetadata().Range().GetEndLine())

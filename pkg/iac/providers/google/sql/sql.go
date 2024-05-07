@@ -65,7 +65,7 @@ type Backups struct {
 
 type IPConfiguration struct {
 	Metadata           iacTypes.Metadata
-	RequireTLS         iacTypes.BoolValue
+	SSLMode            iacTypes.StringValue
 	EnableIPv4         iacTypes.BoolValue
 	AuthorizedNetworks []struct {
 		Name iacTypes.StringValue
